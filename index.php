@@ -26,9 +26,9 @@
                <img src="./img/logo-diy.png" alt="" class="logo">
              </div>
              <div class="col-4 text-right">
-               <i class="fa fa-user pr-3"></i>
+               <a href="registro.php"><i class="fa fa-user pr-3"></i></a>
                <span class="icons-separator"></span>
-               <i class="fa fa-shopping-cart pl-3"></i
+               <i class="fa fa-shopping-cart pl-3"></i>
              </div>
            </div>
           </div>
@@ -46,13 +46,16 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Cajas de Cartón <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="productos.php">Productos<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Cajas Personalizadas</a>
+                <a class="nav-link" href="personalizado.php" target="_blank">Diseño personalizado</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Inspiración</a>
+                <a class="nav-link" href="accesorios.php">Accesorios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="faq.php">Preguntas frecuentes</a>
               </li>
             </ul>
             <form class="form-inline">
@@ -93,8 +96,8 @@
         <!-- Inicio MÁS VENDIDOS -->
         <div class="sellers">
           <h4>Más vendidos</h4>
-          <!-- card-deck + card son clases de bootstrap para armar tarjetas
-          ver más info acá: https://getbootstrap.com/docs/4.0/components/card/#card-decks
+          <!-- card-deck + card clases de bootstrap para armar tarjetas
+          https://getbootstrap.com/docs/4.0/components/card/#card-decks
           un card-deck es un contenedor para cards (se implementa a través de clases)-->
           <div class="card-deck">
             <div class="card">
@@ -224,64 +227,8 @@
         <!-- Fin de SOCIAL and Newsletter -->
 
         <!-- Inicio FOOTER -->
-      <footer class="page-footer font-small blue pt-4">
-          <!-- Footer Links -->
-          <div class="container-fluid text-left">
-            <!-- Inicia FILA -->
-            <div class="row">
-              <!-- Inicia Columna 1 - Ocupa 6 a partir de MD y tiene padding-left: 0 -->
-              <div class="col-md-6 pl-0">
-                <!-- Content -->
-                <h4>Footer</h5>
-                <p>Links organizados en columnas</p>
-              </div>
-              <!-- Fin columna 1 -->
-              <!--  Separador que solo se ve hasta MD-->
-              <hr class="clearfix w-100 d-md-none pb-3">
-              <!-- Inicia columna 2 -->
-              <div class="col-md-3 pl-0">
-                  <!-- Links -->
-                  <h5 class="text-uppercase">Links Izquierda</h5>
-                  <ul class="list-unstyled">
-                    <li>
-                      <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                      <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                      <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                      <a href="#!">Link 4</a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Fin columna 2 -->
-                <!-- Inicia columna 3 -->
-                <div class="col-md-3 pl-0">
-                  <!-- Links -->
-                  <h5 class="text-uppercase">Links Derecha</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a href="#!">Link 1</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 2</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 3</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 4</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <!-- Fin columna 3 -->
-            </div>
-            <!-- Termina fila -->
-          </div>
-          <!-- Footer Links -->
+      <footer class="pt-4">
+
           <!-- Copyright -->
           <div class="footer-copyright py-3">© 2019 Copyright:
             <a href="#"> DIY Packaging </a>
