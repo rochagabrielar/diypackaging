@@ -20,8 +20,22 @@ h3, h4 {
 .topbar .row {
   align-items: center;
 }
-
+/* header */
 .phone {
+  /* color:green; */
+  color: #bfb29f;
+}
+
+.phone ::before {
+  content: "☎";
+  font-size: 0.8em;
+}
+
+.user {
+  color: #bfb29f;
+}
+
+.fa-shopping-cart{
   color: #bfb29f;
 }
 
@@ -137,7 +151,8 @@ footer {
 /* Registro */
 
 .fa-user {
-  color: #495057;
+  /* color: #495057; */
+  color: #bfb29f;
 }
 
 
@@ -145,8 +160,15 @@ footer {
 
 .sellers-prod .card {
   flex: 1 0 20%;
+
 }
 
+/* .card :hover{
+  transform: scale(0.95);
+}
+.card {
+  transition: all 0.5s linear;
+} */
 
 /* Media Queries */
 
@@ -156,9 +178,10 @@ footer {
   max-height: 100px;
   }
   /* Acomodo el tamaño de las tarjetas tomadas de boostrap */
-.card-deck .card {
+.card-deck {
   flex: 1 0 25%
 }
+
 .social-networks {
   margin-top: 20px;
   justify-content: space-between;
