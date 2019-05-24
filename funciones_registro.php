@@ -72,12 +72,11 @@ function validar($data) {
   elseif (strlen($password) < 6) {
     $errores['password'] = "La contraseña debe tener al menos 6 caracteres";
   }
-  // strpos() es una función de PHP - se fija si en un string, se encuentra contenido un segundo string. En recibe dos parametros: El string
-  // donde vamos a buscar el texto ( en este caso la $password) y el string que queremos buscar (en este caso DH en mayuscula)
-  // elseif (strpos($password,'DH') == false) {
-  //   $errores['password'] = "La contraseña debe contener el texto DH";
-  // }
+  elseif ( count(explode('DH', $password)) == 1) {
+    $errores['password'] = "La contraseña debe contener el texto DH";
+  }
 
+  
   //Validando CONFIRMACION DEPASSWORD
 
   // trim() es una función de PHP - elimina los espacios en blanco al inicio y final del string
