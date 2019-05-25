@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
@@ -15,27 +17,27 @@
 	</head>
 	<body>
 
-			<?php include("header.html");?>
-			<?php include("navbar.html");?>
+		<div class="container">
+			<!-- Inicio del HEADER (contiene solo logo y telefonos) -->
+			<?php include("header.html")?>
+			<!-- Fin del HEADER -->
+
+			<!-- Inicio del NAVBAR -->
+				<?php include("navbar.html")?>
+			<!-- Fin del NAVBAR -->
+
+			"Bienvenid@!"
+
+			<h3> <?= $_SESSION["user"] ? 'Hola ' . $_SESSION['user']['nombre'] . '!' : 'Hola!' ?> </h3>
+		 	<h3> <?= $_SESSION["user"] ? 'Tu email es ' . $_SESSION['user']['email'] : '' ?> </h3>
+			<h3> <?= $_SESSION["user"] ? 'Tu usuario es ' . $_SESSION['user']['usuario'] : '' ?> </h3>
+			<img src="<?= $_SESSION["user"] ? "avatars/" . $_SESSION['user']['avatar'] : '' ?>" alt="">
 
 
-
-
-			 "Bienvenid@!"
-
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-
-			<?php include("footer.html");?>
-
-
-
+			<!-- Inicio FOOTER -->
+			<?php include("footer.html") ?>
+			<!-- Fin FOOTER -->
+		</div>
 
 	</body>
 </html>

@@ -13,7 +13,7 @@
 
       <title>DIY - FAQ</title>
     </head>
-    
+
     <body>
       <div class="container">
         <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
@@ -53,7 +53,7 @@
         <p>Comprar en <strong>DIY packaging</strong> es muy fácil. Simplemente elegí los productos que quieras comprar, seleccioná la cantidad que necesitás y presioná "Comprar" para confirmar la compra.</p>
         <p>Para comprar en <strong>DIY Packaging</strong> no necesitás registrarte previamente. Podés pasear por nuestra web, elegir el packaging que más te guste y luego iniciar la compra sin necesidad de registrarte. Una vez que comiences el proceso de compra, la misma web te irá pidiendo los datos necesarios para el pago, la facturación y el envío de tu pedido, y al final de dicho proceso habrás quedado debidamente registrado.</p>
 
-        <p>Por supuesto, en cualquier momento podrás acceder a tu cuenta para modificar o eliminar tus datos. Y cualquier inquietud que tengas podés escribirnos a <a href="mailto:consultas@consultas.com.ar"> consultas@consultas.com.ar</a> o llamarnos al 115555.5555.</p>
+        <p>Por supuesto, en cualquier momento podrás acceder a tu cuenta para modificar o eliminar tus datos. Y cualquier inquietud que tengas podés escribirnos a <a href="mailto:consultas@consultas.com.ar"> consultas@consultas.com.ar</a> o llamarnos al 4234234234</p>
 
         <p>Todos nuestros precios están expresados sin IVA. Al momento de la compra te pediremos tus datos fiscales para generar una factura a nombre de tu empresa. Si sos consumidor final, se aplicará el IVA correspondiente.</p>
 

@@ -1,3 +1,90 @@
+<!-- // Incluimos las funciones de registro
+// De esta manera tengo el scope a la funciones que necesito -->
+
+<?php require_once 'funciones_registro.php';
+
+
+$paises = [
+		'ar' => 'Argentina',
+		'bo' => 'Bolivia',
+		'br' => 'Brasil',
+		'co' => 'Colombia',
+		'cl' => 'Chile',
+		'ec' => 'Ecuador',
+		'pa' => 'Paraguay',
+		'pe' => 'Perú',
+		'uy' => 'Uruguay',
+		've' => 'Venezuela',
+	];
+
+
+// *********************** Empieza la lógica de lo que va a pasar luego de enviar el formuluario*********************
+// Primero valido que la variable superglobal $_POST tenga información, si es asi empiezo a validar la informaciónote
+
+if($_POST) {
+  //
+  // var_dump($_POST);
+
+  //llamo a la función validar() que escribimos arriba que me va a devolver un array de errores, en el caso de que los haya
+
+  //creo una variable y almaceno ahí lo que me devuelva la función validar()
+  $errores = validar($_POST);
+
+  //var_dump($errores);
+  //pregunto si está vació el array de errores
+  //si está vacío, quiere decir que pasó las validaciones
+  //y almaceno a ese usuario en el json de ususarios
+
+
+
+
+
+  if(count($errores) == 0) {
+
+        // Guardo la imagen y obtengo el nombre aleatorio con la funciones
+        // guardarImagen que declare en funciones_registro.php
+  			$nombreImagenAvatar = guardarImagen();
+
+  			// Creo en $_POST una posición "avatar" para guardar el nombre de la imagen
+  			$_POST['avatar'] = $nombreImagenAvatar;
+
+   // Llamo la funcion traerUsuariosDelJson que declare en funciones_registro.php
+    $usuariosArray = traerUsuariosDelJson();
+
+    //guardo a mi usuario
+
+    //la función saveUser me retorna un array de usuario (ver en funciones). Le paso el array de usuarios para saber cuantos ya hay
+    //registrados  y generar dinamicamente el ID de usuario.
+    $nuevoUsuario = guardarUsuario($_POST,$usuariosArray);
+
+    //para validar que el usuario no esté ya registrado
+    //recorro el array de ususuarios usando foreach y si el mail que tengo en el
+    // nuevo usuario = mail que tengo en el array , entonces se direcciona al login
+
+
+    foreach ($usuariosArray as $usuario) {
+      if ($usuario["email"] == $nuevoUsuario["email"]) {
+          header('Location: login.php');
+          exit();
+      }
+    }
+
+    //en la útlima posición disponible del array de usuarios, guardo al nuevo usuario
+    $usuariosArray[] = $nuevoUsuario;
+
+    //ahora que ya guardé a mi nuevo usuario, convierto a la lista completa de usuarios en formato Json
+    $todosLosUsuarios = json_encode($usuariosArray);
+
+    //guardo el json completo de los usuarios en el archivo usuarios.json
+    file_put_contents("usuarios.json", $todosLosUsuarios);
+    //lo redirecciono al usuario a la página de login para que inicie sesión
+    // La redirección usa el "window.location del navegador para llevarte a una nueva URL , descomentar para probar"
+    header('Location: login.php');
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -15,121 +102,118 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous">
-
   </head>
+
     <body>
+
+
+
       <div class="container">
         <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
-        <?php include("header.html");?>
+        <?php include("header.html")?>
         <!-- Fin del HEADER -->
 
         <!-- Inicio del NAVBAR -->
-        <?php include("navbar.html");?>
+            <?php include("navbar.html")?>
         <!-- Fin del NAVBAR -->
 
-      <!--  principio del registro-->
- <div class="container">
-  <div class="row">
-    <div class=" col-12 col-lg-6 ">
-      <form class="formulario" action="index.html" method="post">
-        <div class="col-12 col-md-6">
-           <h2>Registrarse </h2>
-         </div>
-        <div class="row">
-           <div class="col-12 col-md-6">
-            <label for="nombre">
-              <input id="nombre" type="" name="nombre" value="" placeholder="Nombre" required>
-         </label>
-             <label for="surname">
-              <input id="surname" type="text" name="surname" value="" placeholder="Apellido" required>
-           </label>
-      </div>
-          <div class="col-12 col-md-6">
-            <label for="email">
-              <input id="email"type="email" name="email" value=""placeholder="Email" required>
-           </label>
-              <label for="pass">
-              <input id="pass"type="password" name="pass" value="" placeholder="Contraseña"required>
-           </label>
-        </div>
-      </div>
 
-      <div class="col-12 ">
+ <div class="container1">
+  <div class="row">
+
+  <!--  principio del registro-->
+
+    <div class=" col-12  ">
+      <form class="formulario" action="registro.php" method="post" enctype="multipart/form-data">
+
+           <h2>Registrarse </h2>
+
+					 <label class="campo-formulario">
+							 <input id="nombre" type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : "" ?>" placeholder="Nombre" required>
+							 <?php if(isset($errores["nombre"])) : ?>
+								 <div class="alert alert-danger" role="alert">
+									 <?= $errores["nombre"] ?>
+								 </div>
+							 <?php endif; ?>
+							</label>
+
+							<label class="campo-formulario">
+						<input id="username" type="text" name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : "" ?>" placeholder="Usuario" required>
+						<?php if(isset($errores["username"])) : ?>
+							<div class="alert alert-danger" role="alert">
+								<?= $errores["username"] ?>
+							</div>
+						<?php endif; ?>
+				 </label>
+
+            <label class="campo-formulario">
+              <input id="email" type="email" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : "" ?>" placeholder="Email" required>
+              <?php if(isset($errores["email"])) : ?>
+                <div class="alert alert-danger" role="alert">
+                  <?= $errores["email"] ?>
+								</div>
+              <?php endif; ?>
+            </label>
+           <label class="campo-formulario">
+              <select id="pais" class="form-control" name="pais">
+               <option value="">Elegí un país</option>
+   									<?php foreach ($paises as $codigo => $pais): ?>
+   										<option
+   											value="<?= $codigo ?>"
+   											<?= $codigo ==$pais ? 'selected' : null; ?>
+   										>
+   											<?= $pais ?>
+   										</option>
+   									<?php endforeach; ?>
+             </select>
+
+             <?php if(isset($errores["pais"])) : ?>
+               <div class="alert alert-danger" role="alert">
+                 <?= $errores["pais"] ?>
+               </div>
+             <?php endif; ?>
+          </label>
+
+					<label class="campo-formulario">
+            <input id="password" type="password" name="password" value="" placeholder="Contraseña" required>
+            <?php if(isset($errores["password"])) : ?>
+              <div class="alert alert-danger" role="alert">
+                <?= $errores["password"] ?>
+							</div>
+            <?php endif; ?>
+          </label>
+
+					<label class="campo-formulario">
+            <input id="confirmPassword" type="password" name="confirmPassword" value="" placeholder="Confirmar contraseña" required>
+             <?php if(isset($errores["confirmPassword"])) : ?>
+              <div class="alert alert-danger" role="alert">
+                <?= $errores["confirmPassword"] ?>
+              </div>
+            <?php endif; ?>
+          </label>
+
+					<label class="campo-formulario">
+            <input type="file" name="avatar">
+             <?php if(isset($errores["avatar"])) : ?>
+              <div class="alert alert-danger" role="alert">
+                <?= $errores["avatar"] ?>
+              </div>
+            <?php endif; ?>
+          </label>
+
+
         <button class="boton"type="submit" name="button">Crear cuenta</button>
-      </div>
-  </form>
+  	</form>
   </div>
 <!--  final del registro-->
 
-<!-- principio de inicio de sesion -->
-
-  <div class="col-12 col-lg-6">
-  <form class="formulario" action="index.html" method="post">
-    <div class="row">
-      <div class="col-12 ">
-        <h2>Inicie sesión</h2>
-      </div>
-    </div>
-
-        <div class="row">
-      <div class="col-12 ">
-        <!-- <label for="nombre">
-          <input id="nombre" type="" name="nombre" value="" placeholder="Nombre" required>
-        </label> -->
-        <label for="email">
-            <input id="email"type="email" name="email" value=""placeholder="Email" required>
-        </label>
-        <label for="pass">
-            <input id="pass"type="password" name="pass" value="" placeholder="Contraseña"required>
-        </label>
-      </div>
-  </div>
-      <div class="col-12">
-        <a href="perfil.php" class="boton">Iniciar Sesión</a>
-      </div>
-     </form>
-</div>
   </div>
 </div>
  <!--  final de inicio de sesion-->
- <!-- Inicio de SOCIAL and Newsletter -->
 
- <div class="social-newsletter">
-   <h4>Newsletter</h4>
-   <div class="row">
-     <div class="col-md-8">
-       <!-- Clases de Boostrap para usar el formulario en linea
-       https://getbootstrap.com/docs/4.0/components/forms/#readonly-plain-text-->
-       <form action="" method="">
-         <div class="form-group row">
-           <div class="col-sm-9">
-             <input type="email" class="form-control" id="newsletter-email" placeholder="Ingresa tu correo">
-           </div>
-           <div class="col-sm-2">
-             <button type="submit" class="btn btn-newsletter">Suscribirse</button>
-           </div>
-         </div>
-       </form>
-     </div>
-     <!-- Uso íconos de fontawesome y los agrando usando la clase fa-2x -->
-     <div class="col-md-4 social-networks">
-       <i class="fab fa-facebook-f fa-2x"></i>
-       <i class="fab fa-twitter fa-2x"></i>
-       <i class="fab fa-instagram fa-2x"></i>
-     </div>
-   </div>
- </div>
- <!-- Fin de SOCIAL and Newsletter -->
 
  <!-- Inicio FOOTER -->
-<footer class="pt-4">
-
-   <!-- Copyright -->
-   <div class="footer-copyright py-3">© 2019 Copyright:
-     <a href="#"> DIY Packaging </a>
-   </div>
-   <!-- Copyright -->
- </footer>
+ <?php include("footer.html") ?>
  <!-- Fin FOOTER -->
 
 </div>

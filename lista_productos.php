@@ -61,10 +61,6 @@
 			"precio" => 78,
 			"imagen" => "img/productos/pack_de_raiz.jpeg"
 		],
+
 		
-		[
-			"nombre" => "Sobre Pho",
-			"precio" => 78,
-			"imagen" => "img/productos/sobre_fotos.jpeg"
-		],
 	];

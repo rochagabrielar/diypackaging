@@ -1,6 +1,6 @@
 @import "normalize.css";
 
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -8,6 +8,8 @@ body {
   color: #495057;
   background-image: url(../img/leaves-pattern.png);
 }
+
+
 h3, h4 {
   color: #bfb29f;
 }
@@ -22,7 +24,6 @@ h3, h4 {
 }
 /* header */
 .phone {
-  /* color:green; */
   color: #bfb29f;
 }
 
@@ -59,13 +60,13 @@ h3, h4 {
 .btn-search {
   background-color: #fff;
   border: 1px solid #efe4d5;
-  color: #bfb29f
+  color: #bfb29f;
 }
 
 .btn-search:hover {
   background-color: #efe4d5;
   border: 1px solid #fff;
-  color: #fff
+  color: #fff;
 }
 /* Clases sección más vendidos */
 .sellers {
@@ -77,6 +78,9 @@ h3, h4 {
   margin-bottom: 10px !important;
 }
 
+h5 {
+  color: red;
+}
 /* Clases sección destacados */
 .destacados{
   margin-top: 40px;
@@ -87,7 +91,7 @@ h3, h4 {
   margin: 10px 0;
 }
 
-.destacados-product img {
+.destacados-product {
   width: 100%;
 }
 
@@ -119,7 +123,7 @@ h3, h4 {
 .btn-newsletter:hover {
   background-color: #fff;
   border: 1px solid #bfb29f;
-  color: #bfb29f
+  color: #bfb29f;
 }
 
 .fa-facebook-f, .fa-twitter, .fa-instagram {
@@ -142,6 +146,7 @@ footer {
   color: #8A8884;
   text-decoration: none;
 }
+
 .btn-link:hover {
   text-decoration: none;
   color: #bfb29f;
@@ -151,7 +156,6 @@ footer {
 /* Registro */
 
 .fa-user {
-  /* color: #495057; */
   color: #bfb29f;
 }
 
@@ -160,7 +164,9 @@ footer {
 
 .sellers-prod .card {
   flex: 1 0 20%;
-
+}
+.card-body {
+ color: #bfb29f;
 }
 
 /* .card :hover{
@@ -174,24 +180,23 @@ footer {
 
 /* Medium devices (tablets, upto 768px) */
 @media (max-width: 768px) {
-.logo {
-  max-height: 100px;
-  }
-  /* Acomodo el tamaño de las tarjetas tomadas de boostrap */
-.card-deck {
-  flex: 1 0 25%
-}
+            .logo { max-height: 100px;
+                    }
+                    /* Acomodo el tamaño de las tarjetas tomadas de boostrap */
+            .card-deck .card{
+              flex: 1 0 25%;
+            }
 
-.social-networks {
-  margin-top: 20px;
-  justify-content: space-between;
-  }
+            .social-networks {
+              margin-top: 20px;
+              justify-content: space-between;
+              }
 }
 
 /* Medium devices (tablets and small computers) */
 @media (min-width: 769px) and (max-width: 991px) {
   /* Acomodo el tamaño de las tarjetas tomadas de boostrap */
   .card-deck .card {
-    flex: 1 0 30%
+    flex: 1 0 30%;
   }
 }

@@ -17,111 +17,33 @@
   <body>
     <div class="container">
 
-      <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
       <?php include("header.html");?>
-      <!-- Fin del header-->
-
-      <!-- Inicio del NAVBAR -->
       <?php include("navbar.html");?>
-      <!-- Fin del NAVBAR -->
+
 
     <!-- Inicio de productos-->
 
       <h4>Nuestros productos</h4>
       <div class="sellers sellers-prod">
-   <div class="row mx-0">
-     <div class="card-deck">
-      <?php foreach ($productos as $Producto): ?>
-           <div class="card">
-             <img src=<?= $Producto["imagen"] ?> width="200">
-             <div class="card-body">
-                 <h5 class="card title"><?= $Producto["nombre"] ?></h5>
-                 <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-                 <!--	<strong style="color: red"><?= $Producto["precio"] ?></strong> -->
-                 <a href="#" class="btn btn-newsletter">Comprar</a>
+
+           <div class="row mx-0">
+             <div class="card-deck">
+              <?php foreach ($productos as $Producto): ?>
+                   <div class="card">
+                    <img  src= <?= $Producto["imagen"] ?> width="100%"  height="250px">
+                     <div style= "background-color: #efe4d5; align-content: center;" class="card-body">
+                           <h5 style= "color: #bfb29f; text-align: center;" class="card-title"><?= $Producto["nombre"] ?></h5>
+                         <p class="card-text"><small class="text-muted">Ref 2313</small></p>
+                         <!-- <strong style="color: red"><?= $Producto["precio"] ?></strong> -->
+                         <a href="#" class="btn btn-newsletter">Comprar</a>
+                     </div>
+                   </div>
+               <?php endforeach; ?>
              </div>
            </div>
-       <?php endforeach; ?>
-     </div>
-   </div>
- </div>
+         </div>
 
-      <!-- card-deck + card clases de bootstrap para armar tarjetas-->
-<!-- <div class="sellers sellers-prod">
-      <div class="row mx-0">
-      <div class="card-deck">
-        <div class="card">
-          <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-          <div class="card-body">
-            <h5 class="card-title">Producto 1</h5>
-            <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-            <a href="#" class="btn btn-newsletter">Comprar</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="./img/mas-vendidos/img2.jpg" class="card-img-top" alt="img-2">
-          <div class="card-body">
 
-            <h5 class="card-title">Producto 2</h5>
-            <p class="card-text"><small class="text-muted">Ref 2314</small></p>
-            <a href="#" class="btn btn-newsletter">Comprar</a>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 3</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 4</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 5</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 6</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 7</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-          <div class="card">
-            <img src="./img/mas-vendidos/img1.jpg" class="card-img-top" alt="img-1" >
-            <div class="card-body">
-              <h5 class="card-title">Producto 8</h5>
-              <p class="card-text"><small class="text-muted">Ref 2313</small></p>
-              <a href="#" class="btn btn-newsletter">Comprar</a>
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-   </div>
-</div> -->
-
-<!--Fin de productos -->
       <?php include("footer.html");?>
 
 
