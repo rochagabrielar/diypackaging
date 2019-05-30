@@ -42,9 +42,9 @@
 			"imagen" => "img/productos/caja_rectangular.jpg"
 		],
 		[
-			"nombre" => "Caja Sorpresa",
+			"nombre" => "Caja aJuar",
 			"precio" => 78,
-			"imagen" => "img/productos/caja_sorpresa.jpg"
+			"imagen" => "img/productos/caja_ajuar.jpg"
 		],
 		[
 			"nombre" => "Estuche Azero",
@@ -62,5 +62,5 @@
 			"imagen" => "img/productos/pack_de_raiz.jpeg"
 		],
 
-		
+
 	];

@@ -17,11 +17,11 @@
     <body>
       <div class="container">
         <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
-        <?php include("header.html");?>
+        <?php include("header.php");?>
         <!-- Fin del HEADER -->
 
         <!-- Inicio del NAVBAR -->
-          <?php include("navbar.html");?>
+          <?php include("navbar.php");?>
         <!-- Fin del NAVBAR -->
 
 

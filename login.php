@@ -1,5 +1,6 @@
 <?php
 require_once 'funciones_login.php';
+//var_dump($_SESSION);
 
 if($_POST) {
   //convierto en array el json que me traigo con file_get_contents
@@ -14,9 +15,12 @@ if($_POST) {
 
       // valido que las contraseñas coincidan
       if(password_verify($_POST["password"], $usuario["password"])) {
-        session_start();
+
 
         $_SESSION["user"] = $usuario;
+        if (isset($_POST['rememberUser'])) {
+          setcookie('userLoged', $usuario["email"], time() + 3600 * 24 * 7);
+        }
         header('Location: perfil.php');
       }
     }
@@ -45,40 +49,35 @@ if($_POST) {
     <body>
       <div class="container">
         <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
-        <?php include("header.html")?>
+        <?php include("header.php")?>
         <!-- Fin del HEADER -->
 
         <!-- Inicio del NAVBAR -->
-          <?php include("navbar.html")?>
+          <?php include("navbar.php")?>
         <!-- Fin del NAVBAR -->
 
 
-        <div class="container1">
-   <div class="row">
+ <div class="container1">
+  <div class="row">
 
- <!-- principio de inicio de sesion -->
+<!-- principio de inicio de sesion -->
 
-   <div class="col-12 ">
-   <form class="formulario" action="login.php" method="post">
+  <div class="col-12">
+  <form class="formulario" action="perfil.php" method="post">
 
-         <h2>Inicie sesión</h2>
+        <h2>Inicie sesión</h2>
 
+        <label class="campo-formulario">
+            <input type="email" name="email" value=""placeholder="Email" required>
+        </label>
+        <label class="campo-formulario" >
+            <input type="password" name="password" value="" placeholder="Contraseña"required>
+        </label>
+              <button class="boton"type="submit" name="button">Iniciar sesión</button>
 
-         <label class="campo-formulario">
-             <input id="email"type="email" name="email" value=""placeholder="Email" required>
-         </label>
-         <label class="campo-formulario">
-             <input id="password"type="password" name="password" value="" placeholder="Contraseña"required>
-         </label>
-    
-       <div class="col-12 ">
-         <button class="boton"type="submit" name="button">Iniciar sesión</button>
-       </div>
-      </form>
-
-      <!--  boton de recordarme -->
+<!--  boton de recordarme -->
       <div class="form-check">
-       <input type="checkbox" class="form-check-input" id="dropdownCheck">
+       <input type="checkbox" class="form-check-input" name="rememberUser">
        <label class="form-check-label" for="dropdownCheck">
          Recordarme
        </label>
@@ -86,20 +85,39 @@ if($_POST) {
 
 <!-- Fin boton de recordarme -->
 
-      <div class="">
-        <b>
-        <a style= "color: #bfb29f;" href="registro.php">No tenes cuenta? registrate acá</a>
-      </b>
-      </div>
+
+     <div class="register">
+       <a href="registro.php">No tenes cuenta? registrate acá</a>
      </div>
+    </div>
 
-   </div>
- </div>
-  <!--  final de inicio de sesion-->
+  </div>
+</div>
+ </form>
+ <!--  final de inicio de sesion-->
 
 
-  <!-- Inicio FOOTER -->
-  <?php include("footer.html") ?>
-  <!-- Fin FOOTER -->
+ <!-- Inicio FOOTER -->
+ <?php include("footer.php") ?>
+ <!-- Fin FOOTER -->
 
- </div>
+</div>
+
+<!-- Código javascript de jquery para poder usar boostrap -->
+<script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous">
+
+</script>
+
+<!-- Código javascript de bootstrap -->
+<script
+src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+crossorigin="anonymous">
+</script>
+
+
+  </body>
+</html>

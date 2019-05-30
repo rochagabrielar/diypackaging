@@ -17,6 +17,7 @@ $paises = [
 		've' => 'Venezuela',
 	];
 
+$codigopais = "";
 
 // *********************** Empieza la lógica de lo que va a pasar luego de enviar el formuluario*********************
 // Primero valido que la variable superglobal $_POST tenga información, si es asi empiezo a validar la informaciónote
@@ -26,7 +27,7 @@ if($_POST) {
   // var_dump($_POST);
 
   //llamo a la función validar() que escribimos arriba que me va a devolver un array de errores, en el caso de que los haya
-
+	$codigopais = $_POST['pais'];
   //creo una variable y almaceno ahí lo que me devuelva la función validar()
   $errores = validar($_POST);
 
@@ -110,11 +111,11 @@ if($_POST) {
 
       <div class="container">
         <!-- Inicio del HEADER (contiene solo logo y telefonos) -->
-        <?php include("header.html")?>
+        <?php include("header.php")?>
         <!-- Fin del HEADER -->
 
         <!-- Inicio del NAVBAR -->
-            <?php include("navbar.html")?>
+          <?php include("navbar.php")?>
         <!-- Fin del NAVBAR -->
 
 
@@ -123,44 +124,51 @@ if($_POST) {
 
   <!--  principio del registro-->
 
-    <div class=" col-12  ">
+    <div class=" col-12">
       <form class="formulario" action="registro.php" method="post" enctype="multipart/form-data">
 
            <h2>Registrarse </h2>
 
-					 <label class="campo-formulario">
-							 <input id="nombre" type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : "" ?>" placeholder="Nombre" required>
-							 <?php if(isset($errores["nombre"])) : ?>
-								 <div class="alert alert-danger" role="alert">
-									 <?= $errores["nombre"] ?>
-								 </div>
-							 <?php endif; ?>
-							</label>
+            <label class="campo-formulario">
+              <input type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : "" ?>" placeholder="Nombre" >
+              <?php if(isset($errores["nombre"])) : ?>
 
-							<label class="campo-formulario">
-						<input id="username" type="text" name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : "" ?>" placeholder="Usuario" required>
-						<?php if(isset($errores["username"])) : ?>
-							<div class="alert alert-danger" role="alert">
-								<?= $errores["username"] ?>
-							</div>
-						<?php endif; ?>
-				 </label>
+							  <div class="alert alert-danger" role="alert">
+                  <?= $errores["nombre"] ?>
+                </div>
+
+              <?php endif; ?>
+            </label>
+
+             <label class="campo-formulario">
+              <input type="text" name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : "" ?>" placeholder="Usuario" >
+              <?php if(isset($errores["username"])) : ?>
+
+                <div class="alert alert-danger" role="alert">
+                  <?= $errores["username"] ?>
+                </div>
+
+              <?php endif; ?>
+           </label>
+
 
             <label class="campo-formulario">
-              <input id="email" type="email" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : "" ?>" placeholder="Email" required>
+              <input type="email" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : "" ?>" placeholder="Email" >
               <?php if(isset($errores["email"])) : ?>
-                <div class="alert alert-danger" role="alert">
+
+								<div class="alert alert-danger" role="alert">
                   <?= $errores["email"] ?>
-								</div>
+                </div>
+
               <?php endif; ?>
             </label>
            <label class="campo-formulario">
-              <select id="pais" class="form-control" name="pais">
+             <select class="form-control" name="pais">
                <option value="">Elegí un país</option>
    									<?php foreach ($paises as $codigo => $pais): ?>
    										<option
    											value="<?= $codigo ?>"
-   											<?= $codigo ==$pais ? 'selected' : null; ?>
+   											<?= $codigo == $codigopais ? 'selected' : null; ?>
    										>
    											<?= $pais ?>
    										</option>
@@ -174,46 +182,49 @@ if($_POST) {
              <?php endif; ?>
           </label>
 
-					<label class="campo-formulario">
-            <input id="password" type="password" name="password" value="" placeholder="Contraseña" required>
+
+          <label class="campo-formulario">
+            <input type="password" name="password" value="" placeholder="Contraseña" >
             <?php if(isset($errores["password"])) : ?>
               <div class="alert alert-danger" role="alert">
                 <?= $errores["password"] ?>
-							</div>
+              </div>
             <?php endif; ?>
           </label>
-
-					<label class="campo-formulario">
-            <input id="confirmPassword" type="password" name="confirmPassword" value="" placeholder="Confirmar contraseña" required>
-             <?php if(isset($errores["confirmPassword"])) : ?>
+          <label class="campo-formulario">
+            <input  type="password" name="confirmPassword" value="" placeholder="Confirmar contraseña" >
+            <?php if(isset($errores["confirmPassword"])) : ?>
               <div class="alert alert-danger" role="alert">
                 <?= $errores["confirmPassword"] ?>
               </div>
             <?php endif; ?>
           </label>
 
-					<label class="campo-formulario">
-            <input type="file" name="avatar">
-             <?php if(isset($errores["avatar"])) : ?>
-              <div class="alert alert-danger" role="alert">
-                <?= $errores["avatar"] ?>
-              </div>
-            <?php endif; ?>
-          </label>
 
+         <input type="file" name="avatar" value="" placeholder="Usuario" >
+				 <?php if(isset($errores["avatar"])) : ?>
 
+					 <div class="alert alert-danger" role="alert">
+						 <?= $errores["avatar"] ?>
+					 </div>
+
+				 <?php endif; ?>
+
+      <div >
         <button class="boton"type="submit" name="button">Crear cuenta</button>
-  	</form>
+      </div>
+  </form>
   </div>
 <!--  final del registro-->
 
   </div>
+
 </div>
  <!--  final de inicio de sesion-->
 
 
  <!-- Inicio FOOTER -->
- <?php include("footer.html") ?>
+ <?php include("footer.php") ?>
  <!-- Fin FOOTER -->
 
 </div>

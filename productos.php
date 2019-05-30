@@ -17,8 +17,8 @@
   <body>
     <div class="container">
 
-      <?php include("header.html");?>
-      <?php include("navbar.html");?>
+      <?php include("header.php");?>
+      <?php include("navbar.php");?>
 
 
     <!-- Inicio de productos-->
@@ -44,7 +44,7 @@
          </div>
 
 
-      <?php include("footer.html");?>
+      <?php include("footer.php");?>
 
 
 

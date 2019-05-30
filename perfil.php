@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start();?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -19,11 +19,11 @@
 
 		<div class="container">
 			<!-- Inicio del HEADER (contiene solo logo y telefonos) -->
-			<?php include("header.html")?>
+			<?php include("header.php")?>
 			<!-- Fin del HEADER -->
 
 			<!-- Inicio del NAVBAR -->
-				<?php include("navbar.html")?>
+				<?php include("navbar.php")?>
 			<!-- Fin del NAVBAR -->
 
 			"Bienvenid@!"
@@ -35,7 +35,7 @@
 
 
 			<!-- Inicio FOOTER -->
-			<?php include("footer.html") ?>
+			<?php include("footer.php") ?>
 			<!-- Fin FOOTER -->
 		</div>
 

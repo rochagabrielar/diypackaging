@@ -1,7 +1,23 @@
 <?php
 
+// Inicio la sesión para tener acceso a $_SESSION en todos los archivos
+	session_start();
+
+  // Definimos las constantes que necesitamos en nuestro proyecto
+  	define('ALLOWED_IMAGE_FORMATS', ['jpg', 'jpeg', 'png', 'gif']);
+
+	// Si está la cookie almacenada y si NO está logueda la persona:
+	if ( isset($_COOKIE['userLoged']) && !isLogged() ) {
+		// Busco al usuario por el email que tengo almacenado en la cookie
+		$theUser = getUserByEmail($_COOKIE['userLoged']);
+		// Guardo en sesión al usuario que bisqué anteiormente
+		$_SESSION['userLoged'] = $theUser;
+	}
+
+
+
 // *********************** Empieza función Validar******
-// ESTA FUNCIÓN VALIDA QUE EL FORMULARIO NO TENGA ERRORES
+// ESTA FUNCIÓN VALIDA QUE EL FORMUL$_POST['pais'] ARIO NO TENGA ERRORES
 // Recibe un parámetro ($data). Al ejecutarla en nuestro código, le enviaremos $_POST para que valida la información que llegó a través del formulario
 
 function validar($data) {
@@ -72,11 +88,12 @@ function validar($data) {
   elseif (strlen($password) < 6) {
     $errores['password'] = "La contraseña debe tener al menos 6 caracteres";
   }
+  // strpos() es una función de PHP - se fija si en un string, se encuentra contenido un segundo string. En recibe dos parametros: El string
+  // donde vamos a buscar el texto ( en este caso la $password) y el string que queremos buscar (en este caso DH en mayuscula)
   elseif ( count(explode('DH', $password)) == 1) {
     $errores['password'] = "La contraseña debe contener el texto DH";
   }
 
-  
   //Validando CONFIRMACION DEPASSWORD
 
   // trim() es una función de PHP - elimina los espacios en blanco al inicio y final del string
@@ -97,7 +114,18 @@ function validar($data) {
     $errores['pais'] = "Debe ingresar un pais";
   }
 
-  // Validando pais
+  // Validando imagen
+  $avatar = $_FILES['avatar'];
+  if ( $avatar['error'] != UPLOAD_ERR_OK )
+  {
+			$errores['avatar'] = 'Subí una imagen';
+		} else {
+			$ext = pathinfo($avatar['name'], PATHINFO_EXTENSION);
+			if ( !in_array($ext, ALLOWED_IMAGE_FORMATS) ) {
+				$errores['avatar'] = 'Los formatos permitidos son JPG, PNG y GIF';
+			}
+		}
+
 
   return $errores;
 }
@@ -116,7 +144,7 @@ function guardarUsuario($data,$usersArray) {
     "usuario" => $data["username"],
     "password" => password_hash($data["password"], PASSWORD_DEFAULT),
     "pais" => $data["pais"],
-    "avatar" => $data["avatar"],
+    "avatar" => $_FILES["avatar"],
   ];
   return $user;
 }
@@ -195,6 +223,28 @@ function generarIdDeUsuario() {
   // Retorno el ID del último usuario registrado + 1
   return $ultimoUsuario['id'] + 1;
 }
+
+
+
+
+// Función para loguear al usuario
+	/*
+		Recibe como parámetro un array que contenga la información del usuario.
+	*/
+	function login($user) {
+		// Del usuario que recibo saco la posición "password" pues no me interesa tenerla en sesión
+		unset($user['password']);
+		// Guardo en sesión al usuario que recibo por parámetro
+		$_SESSION['userLoged'] = $user;
+		// Redirecciono al perfil del usuario
+		header('location: profile.php');
+		exit; // Siempre, después de una redirección se recomienda hacer un exit.
+	}
+	// Función para saber si está logueado la/el usuaria/o
+	function isLogged() {
+		// El return devuelve true o false, según lo que retorne la función isset()
+		return isset($_SESSION['userLoged']);
+	}
 
 
 
