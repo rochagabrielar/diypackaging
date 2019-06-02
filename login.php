@@ -16,8 +16,8 @@ if($_POST) {
       // valido que las contraseñas coincidan
       if(password_verify($_POST["password"], $usuario["password"])) {
 
-
-        $_SESSION["user"] = $usuario;
+        session_start();
+        $_SESSION["userLoged"] = $usuario;
         if (isset($_POST['rememberUser'])) {
           setcookie('userLoged', $usuario["email"], time() + 3600 * 24 * 7);
         }
@@ -61,39 +61,38 @@ if($_POST) {
   <div class="row">
 
 <!-- principio de inicio de sesion -->
+   <div class="col-12">
+     <form class="formulario" action="login.php" method="post">
 
-  <div class="col-12">
-  <form class="formulario" action="perfil.php" method="post">
 
         <h2>Inicie sesión</h2>
 
         <label class="campo-formulario">
             <input type="email" name="email" value=""placeholder="Email" required>
         </label>
-        <label class="campo-formulario" >
+
+        <label class="campo-formulario">
             <input type="password" name="password" value="" placeholder="Contraseña"required>
         </label>
-              <button class="boton"type="submit" name="button">Iniciar sesión</button>
 
+        <label>
+           <button class="boton"type="submit" name="button">Iniciar sesión</button>
+        </label>
 <!--  boton de recordarme -->
       <div class="form-check">
        <input type="checkbox" class="form-check-input" name="rememberUser">
        <label class="form-check-label" for="dropdownCheck">
          Recordarme
        </label>
-     </div>
-
+      </div>
 <!-- Fin boton de recordarme -->
-
-
-     <div class="register">
        <a href="registro.php">No tenes cuenta? registrate acá</a>
+
+       </form>
      </div>
     </div>
-
   </div>
-</div>
- </form>
+
  <!--  final de inicio de sesion-->
 
 
@@ -101,7 +100,7 @@ if($_POST) {
  <?php include("footer.php") ?>
  <!-- Fin FOOTER -->
 
-</div>
+
 
 <!-- Código javascript de jquery para poder usar boostrap -->
 <script
