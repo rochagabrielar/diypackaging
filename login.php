@@ -1,11 +1,13 @@
 <?php
 require_once 'funciones_login.php';
+require_once 'conexion.php';
 //var_dump($_SESSION);
 
 if($_POST) {
   //convierto en array el json que me traigo con file_get_contents
-  $usuariosArray = traerUsuariosDelJson();
+  $usuariosArray = traerUsuariosDeSql();
 
+  var_dump($usuariosArray);
   //hago un foreach para recorrer la lista de todos los usuarios y buscar al que se quiere loguear
   //cada posición de ese array va a ser un usuario
   foreach($usuariosArray as $usuario) {

@@ -3,6 +3,10 @@
 
 <?php require_once 'funciones_registro.php';
 
+  //
+  // require_once 'conexion.php';
+
+
 
 $paises = [
 		'ar' => 'Argentina',
@@ -50,34 +54,35 @@ if($_POST) {
   			$_POST['avatar'] = $nombreImagenAvatar;
 
    // Llamo la funcion traerUsuariosDelJson que declare en funciones_registro.php
-    $usuariosArray = traerUsuariosDelJson();
+    // $usuariosArray = traerUsuariosDelJson();
 
     //guardo a mi usuario
 
     //la función saveUser me retorna un array de usuario (ver en funciones). Le paso el array de usuarios para saber cuantos ya hay
     //registrados  y generar dinamicamente el ID de usuario.
-    $nuevoUsuario = guardarUsuario($_POST,$usuariosArray);
+    // $nuevoUsuario = guardarUsuario($_POST,$usuariosArray);
+    	  guardarUsuario();
 
     //para validar que el usuario no esté ya registrado
     //recorro el array de ususuarios usando foreach y si el mail que tengo en el
     // nuevo usuario = mail que tengo en el array , entonces se direcciona al login
 
 
-    foreach ($usuariosArray as $usuario) {
-      if ($usuario["email"] == $nuevoUsuario["email"]) {
-          header('Location: login.php');
-          exit();
-      }
-    }
+    // foreach ($usuariosArray as $usuario) {
+    //   if ($usuario["email"] == $nuevoUsuario["email"]) {
+    //       header('Location: login.php');
+    //       exit();
+    //   }
+    // }
 
     //en la útlima posición disponible del array de usuarios, guardo al nuevo usuario
-    $usuariosArray[] = $nuevoUsuario;
+    // $usuariosArray[] = $nuevoUsuario;
 
     //ahora que ya guardé a mi nuevo usuario, convierto a la lista completa de usuarios en formato Json
-    $todosLosUsuarios = json_encode($usuariosArray);
+    // $todosLosUsuarios = json_encode($usuariosArray);
 
     //guardo el json completo de los usuarios en el archivo usuarios.json
-    file_put_contents("usuarios.json", $todosLosUsuarios);
+    // file_put_contents("usuarios.json", $todosLosUsuarios);
     //lo redirecciono al usuario a la página de login para que inicie sesión
     // La redirección usa el "window.location del navegador para llevarte a una nueva URL , descomentar para probar"
     header('Location: login.php');

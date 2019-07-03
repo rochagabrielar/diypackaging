@@ -1,5 +1,5 @@
 <?php
-
+require_once 'conexion.php';
 // Inicio la sesión para tener acceso a $_SESSION en todos los archivos
 	session_start();
 
@@ -136,18 +136,24 @@ function validar($data) {
 // Esta hace RETURN de un usuario (osea, devuelve un usuario) , a partir de la información que se le pasa por el parámetro ($data)
 // En nuestro caso le mandamos lo que tenemos en $_POST + el $usersArray para saber cuantos usuarios tenemos, y calcular dinamicamente el ID único de cada usuario.
 
-function guardarUsuario($data,$usersArray) {
-  $user = [
-    "id" => generarIdDeUsuario(),
-    "nombre" => $data["nombre"],
-    "email" => $data["email"],
-    "usuario" => $data["username"],
-    "password" => password_hash($data["password"], PASSWORD_DEFAULT),
-    "pais" => $data["pais"],
-    "avatar" => $_FILES["avatar"],
-  ];
-  return $user;
+function guardarUsuario() {
+	global $conexion;
+
+	$nombre = $_POST['nombre'];
+	$email = $_POST['email'];
+	$username = $_POST['username'];
+	$password = password_hash($_POST["password"],PASSWORD_DEFAULT);
+	$pais = $_POST['pais'];
+	$avatar = $_POST['avatar'];
+
+	try {
+		$consulta = $conexion->prepare("INSERT INTO users values (default, ?, ?, ?, ?, ?, ?)");
+		$consulta->execute([$nombre, $username, $password, $pais, $avatar,  $email]);
+	} catch(PDOException $error) {
+		die('Error de base de datos');
+	}
 }
+
 
 // *********************** Termina función GuardarUsuario******
 
@@ -172,48 +178,49 @@ function guardarUsuario($data,$usersArray) {
 		return $nombreArchivo;
 	}
 
-  function emailExiste($email) {
-		// Traigo a todos los usuarios
-		$allUsers = traerUsuariosDelJson();
-		// Recorro el array de usuarios
-		foreach ($allUsers as $oneUser) {
-			// Si la posición "email" del usuario en la iteración coincide con el email que pasé como parámetro
-			if ($oneUser['email'] == $email) {
-				return true;
-			}
+	function emailExiste($email) {
+		global $conexion;
+		// La query que hay que hacer
+		$sql = 'SELECT * FROM users WHERE email='.$email;
+		// // Preparo la query para ejecutarla
+		$consulta = $conexion->prepare("SELECT * FROM users WHERE email=?");
+		$user = $consulta->execute([$email]);
+		if($user) {
+			return true;
 		}
-		// Si termino de recorrer el array y no se encontró al email que pasé como parámetro
 		return false;
 	}
 
   function usernameExiste($username) {
-    // Traigo a todos los usuarios
-    $allUsers = traerUsuariosDelJson();
-    // Recorro el array de usuarios
-    foreach ($allUsers as $oneUser) {
-      // Si la posición "username" del usuario en la iteración coincide con el usuario que pasé como parámetro
-      if ($oneUser['usuario'] == $username) {
-        return true;
-      }
-    }
-    // Si termino de recorrer el array y no se encontró al usuario que pasé como parámetro
-    return false;
+		global $conexion;
+		// La query que hay que hacer
+		$sql = 'SELECT * FROM users WHERE username='.$username;
+		// // Preparo la query para ejecutarla
+		$consulta = $conexion->prepare("SELECT * FROM users WHERE username=?");
+		$user = $consulta->execute([$username]);
+		if($user) {
+			return true;
+		}
+		return false;
   }
 
   // Función traer todo del JSON
-	function traerUsuariosDelJson() {
-		// Obtengo el contenido del archivo JSON
-		$fileContent = file_get_contents("usuarios.json");
-		// Decodifico el JSON a un array asociativo, importante el "true"
-		$allUsers = json_decode($fileContent, true);
-		// Retorno el array de usuarios
-		return $allUsers;
+	function traerUsuariosDeSql() {
+		global $conexion;
+	  // La query que hay que hacer
+	  $sql = 'SELECT *
+	          FROM users';
+	 // // Preparo la query para ejecutarla
+	 $consulta = $conexion->query($sql);
+	 $allUsers = $consulta->fetchAll();
+
+	 return $allUsers;
 	}
 
   // Función para generar un ID
 function generarIdDeUsuario() {
   // Traigo a todos los usuarios
-  $todosLosUsuarios = traerUsuariosDelJson();
+  $todosLosUsuarios = traerUsuariosDeSql();
   // Si el conteo del array de usuarios es igual a cero
   if ( count($todosLosUsuarios) == 0 ) {
     return 1;
@@ -237,7 +244,7 @@ function generarIdDeUsuario() {
 		// Guardo en sesión al usuario que recibo por parámetro
 		$_SESSION['userLoged'] = $user;
 		// Redirecciono al perfil del usuario
-		header('location: profile.php');
+		header('location: perfil.php');
 		exit; // Siempre, después de una redirección se recomienda hacer un exit.
 	}
 	// Función para saber si está logueado la/el usuaria/o

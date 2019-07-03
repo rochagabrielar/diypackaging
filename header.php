@@ -14,7 +14,7 @@
      </div>
      <div class="col-4 text-right">
        <a href="login.php" class="user">
-         Iniciar Sesión
+        
          <i class="fa fa-user pr-3"></i></a>
        <span class="icons-separator"></span>
        <i class="fa fa-shopping-cart pl-3"></i>
