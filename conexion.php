@@ -3,7 +3,7 @@
 $host='127.0.0.1';
 $db = 'diy';
 $username = 'root';
-$password = '';
+$password = 'root';
 
 $dsn= "mysql:host=$host;dbname=$db";
 
